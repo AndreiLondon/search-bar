@@ -1,0 +1,64 @@
+.container {
+  margin: auto;
+  margin-top: 3%;
+  position: relative;
+  width: 500px;
+  height: 42px;
+  border: 2px solid rgb(69, 95, 168);
+  padding: 0px 10px;
+  border-radius: 50px;
+}
+.elementsContainer {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+.search {
+  border: none;
+  height: 100%;
+  width: 300px;
+  padding: 0px 5px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+  color: #424242;
+  font-weight: 500;
+}
+.search:focus {
+  outline: none;
+}
+
+/* CARDS */
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-gap: 20px;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: max-content 200px 1fr;
+}
+
+.card img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
