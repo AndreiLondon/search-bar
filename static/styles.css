@@ -1,3 +1,7 @@
+body {
+  background-image: url("static/images/3.jpg");
+}
+
 .container {
   margin: auto;
   margin-top: 3%;

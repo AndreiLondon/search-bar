@@ -1,15 +1,32 @@
 package main
 
-// func getData(url string) (string, err) {
-// 	if err := json.Unmarshal(data, &url); err != nil {
-// 		log.Fatalf("JSON unmarshaling failed: %s", err)
-// 	}
-// 	fmt.Printf("%s\n", data)
-// }
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+)
 
-// func getData(url string) (string, error) {
-// 	resp, err := http.Get(issuesURL)
-// 	if err != nil {
-// 		return "", err
-// 	}
-// }
+// Get the JSON response from the URL.
+func getData(apiURL string) (string, error) {
+	resp, err := http.Get(apiURL)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	// Read the body of the response into []byte.
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Declare a variable of type .
+	var art Groupies
+	// Unmarshal the JSON data into the variable.
+	if err := json.Unmarshal(body, &art); err != nil {
+		log.Fatal(err)
+	}
+	// Print the first station.
+	fmt.Printf("%+v\n\n", art.Artists[0])
+	return "", err
+}
