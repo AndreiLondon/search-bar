@@ -1,5 +1,5 @@
 body {
-  background-image: url("static/images/3.jpg");
+  margin: 25px;
 }
 
 .container {
@@ -66,3 +66,4 @@ img {
   width: 100%;
   height: 100%;
 }
+

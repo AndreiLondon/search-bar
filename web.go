@@ -1,14 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"text/template"
 )
 
 const portNumber = ":8080"
+
 const apiURL = "https://groupietrackers.herokuapp.com/api"
+const artURL = "https://groupietrackers.herokuapp.com/api/artists"
+const locURL = "https://groupietrackers.herokuapp.com/api/locations"
+const datesURL = "https://groupietrackers.herokuapp.com/api/dates"
+const relURL = "https://groupietrackers.herokuapp.com/api/relation"
 
 /*
 w - writer - a value for updating the response that will be sent to the browser
@@ -18,7 +22,7 @@ r - request - a value representing the request from the browser
 where all parameters are existing
 */
 
-func Home(w http.ResponseWriter, r *http.Request) {
+func getHome(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
@@ -41,7 +45,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	   represents any dynamic data that we want to pass in, which for now we'll
 	   leave as nil.
 	*/
-	temp.Execute(w, nil)
+	temp.Execute(w, bands[0])
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
@@ -50,24 +54,40 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	//renderTemplate(w, "index.html")
 }
 
-func main() {
-	/*
-		"/" root element
-		If we receive a request for a URL ending - "/", "/artist", "/error"
-		Home, Artist, Error names of the func that generate a response.
-	*/
-	http.HandleFunc("/", Home)
+func getError(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/error" {
+		http.NotFound(w, r)
+		return
 
-	//Fixing Static data
-	staticHandler := http.StripPrefix(
-		"/static/",
-		http.FileServer(http.Dir("./static")),
-	)
-	http.Handle("/static/", staticHandler)
-	// _ = http.ListenAndServe(portNumber, nil)
+	}
+	temp, err := template.ParseFiles("templates/error.html")
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+	temp.Execute(w, nil)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", 500)
+	}
+}
 
-	//Listen for request
-	fmt.Println((fmt.Sprintf("Starting application on port %s", portNumber)))
-	http.ListenAndServe(portNumber, nil)
+func getArtist(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/artist" {
+		http.NotFound(w, r)
+		return
 
+	}
+	temp, err := template.ParseFiles("templates/artist.html")
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", 500)
+		return
+	}
+	temp.Execute(w, nil)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal Server Error", 500)
+	}
 }

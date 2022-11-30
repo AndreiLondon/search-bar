@@ -4,6 +4,7 @@ package main
 For the "Artists" , "ArtistNames" field, we use a field tag `json:"artists"` to help Go examine which field in the JSON is mapped to this field in the struct.
 */
 
+// A Groupies struct to map the Entire Response
 type Groupies struct {
 	Artists   string `json:"artists"`
 	Locations string `json:"locations"`
@@ -11,9 +12,9 @@ type Groupies struct {
 	Relation  string `json:"relation"`
 }
 
-// declare a custom type using struct
+// An Artists Struct to map every artists to.
 
-type Artist struct {
+type Artists struct {
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
@@ -25,7 +26,7 @@ type Artist struct {
 	Relations    string   `json:"relations"`
 }
 
-type Location struct {
+type Locations struct {
 	Index []struct {
 		ID        int      `json:"id"`
 		Locations []string `json:"locations"`
@@ -33,17 +34,17 @@ type Location struct {
 	} `json:"index"`
 }
 
-type Date struct {
+type Dates struct {
 	Index []struct {
 		ID    int      `json:"id"`
 		Dates []string `json:"dates"`
 	} `json:"index"`
 }
 
-type Relation struct {
-	Index []Item `json:"index"`
+type Relations struct {
+	Index []Items `json:"index"`
 }
-type Item struct {
+type Items struct {
 	ID             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
